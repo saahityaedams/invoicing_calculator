@@ -38,7 +38,7 @@ def calculate_invoice(contract_value, start_date, end_date, current_month,
   # Calculate invoice amount
   invoice_amount = billable_days * daily_rate
 
-  return round(invoice_amount, 2)
+  return round(invoice_amount, 2), billable_days, total_days
 
 st.title("Invoicing Calculator")
 contract_value = st.number_input("Total Contract Value")
@@ -50,6 +50,8 @@ current_month = st.selectbox("Select Month", options=months)
 days_off = st.number_input("Days off")
 
 if st.button("Calculate"):
-  invoice = calculate_invoice(contract_value, start_date, end_date,
+  invoice, billable_days, total_days = calculate_invoice(contract_value, start_date, end_date,
     current_month, days_off)
   st.write("Result:", invoice)
+  st.write("Billable Days:", billable_days)
+  st.write("Total Days", total_days)
